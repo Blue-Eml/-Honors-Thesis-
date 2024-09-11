@@ -1,2 +1,2 @@
-# -Honors-Thesis-.github.io
+# -Honors-Thesis-
 Sociology Research Paper 
