@@ -1,0 +1,213 @@
+---
+title: "Creating Dummy Variables"
+author: "Emily Blue"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(openintro)
+```
+
+```{r code-chunk-label}
+
+All_Crime_1 <- All_Crime_1 %>%
+select(USSCIDN, OFFGUIDE, SENSPCAP, MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE, WEAPON, SENTRNGE, NEWCNVTN, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, Region, Dependents, Race, Education, Custody_Status, Convicted, Offense, PRISDUM, SENTTCAP)
+
+# Removing places outside of US
+All_Crime_1 <- All_Crime_1 %>%
+  filter(CIRCDIST != 69 & CIRCDIST != 74 & CIRCDIST != 5 & CIRCDIST != 18)
+# Goes from 613411 obs to 602656
+
+## Removing non-Citizens
+
+All_Crime_1 <- All_Crime_1 %>%
+  filter(NEWCIT == 0)
+# Goes from 602656 to 325455
+
+# Removing people under 18
+All_Crime_1 <- All_Crime_1 %>%
+  filter(AGE >= 18)
+# From 325455 to 352346
+
+```
+
+
+
+### Creating a dataset with binary variables 
+
+```{r}
+
+########################### Race Dummy
+
+All_Crime_1$White <- ifelse(All_Crime_1$NEWRACE == 1, 1, 0)
+
+All_Crime_1$Black <- ifelse(All_Crime_1$NEWRACE == 2, 1, 0)
+
+All_Crime_1$Hispanic <- ifelse(All_Crime_1$NEWRACE == 3, 1, 0)
+
+All_Crime_1$Other <- ifelse(All_Crime_1$NEWRACE == 6, 1, 0)
+
+########################### Education Dummy
+
+All_Crime_1$LessthanHS <- ifelse(All_Crime_1$NEWEDUC == 1, 1, 0)
+
+All_Crime_1$HSgrad <- ifelse(All_Crime_1$NEWEDUC == 3, 1, 0)
+
+All_Crime_1$SomeCollege <- ifelse(All_Crime_1$NEWEDUC == 5, 1, 0)
+
+All_Crime_1$CollegeGrad <- ifelse(All_Crime_1$NEWEDUC == 6, 1, 0)
+
+##########################  Region Dummy
+
+table(All_Crime_1$Region)
+
+# Northeast
+All_Crime_1$Northeast <- ifelse(All_Crime_1$Region == "Northeast", 1, 0)
+
+table(All_Crime_1$Northeast)
+
+# West
+All_Crime_1$West <- ifelse(All_Crime_1$Region == "West", 1, 0)
+
+table(All_Crime_1$West)
+
+#Midwest
+All_Crime_1$Midwest <- ifelse(All_Crime_1$Region == "Midwest", 1, 0)
+
+table(All_Crime_1$Midwest)
+
+#South
+
+All_Crime_1$South <- ifelse(All_Crime_1$Region == "South", 1, 0)
+
+table(All_Crime_1$South)
+
+#################### Plea or Bail
+
+All_Crime_1$Plea <- ifelse(All_Crime_1$NEWCNVTN == 0,1,0)
+
+table(All_Crime_1$NEWCNVTN)
+table(All_Crime_1$Plea)
+
+
+
+####### Custody Status
+
+All_Crime_1$Custody <- ifelse(All_Crime_1$PRESENT == "1", 1, 0)
+
+All_Crime_1$Bail_Bond <- ifelse(All_Crime_1$PRESENT == "2", 1, 0)
+
+All_Crime_1$Released  <- ifelse(All_Crime_1$PRESENT == "3", 1, 0)
+
+All_Crime_1$Other_Status <- ifelse(All_Crime_1$PRESENT == "4", 1, 0)
+
+
+table(All_Crime_1$PRESENT)
+
+table(All_Crime_1$Bail)
+table(All_Crime_1$Custody)
+table(All_Crime_1$Released)
+table(All_Crime_1$Other_Status)
+
+
+######## Renaming some vars
+
+All_Crime_1 <- All_Crime_1 %>%
+rename(OffenseLevel = XFOLSOR)
+
+All_Crime_1 <- All_Crime_1 %>%
+rename(CrimHistLevel = XCRHISSR)
+
+
+All_Crime_1.noNA <- na.omit(All_Crime_1)
+
+```
+
+
+
+
+
+
+
+## Selecting Variables
+
+```{r code-chunk-label}
+
+# Removing places outside of US
+All_Crime_1 <- All_Crime_1 %>%
+  filter(CIRCDIST != 69 & CIRCDIST != 74 & CIRCDIST != 5 & CIRCDIST != 18)
+# Goes from 613411 obs to 602656
+
+## Removing non-Citizens
+
+All_Crime_1 <- All_Crime_1 %>%
+  filter(NEWCIT == 0)
+# Goes from 602656 to 325455
+
+# Removing people under 18
+
+All_Crime_1 <- All_Crime_1 %>%
+  filter(AGE >= 18)
+# From 325455 to 352346
+
+```
+
+
+
+
+## Offense Type
+### Violent, Drug, White Collar, Other
+
+## Categorization from Demuth and Doerner 
+Violent = Manslaughter, Kidnapping/hostage, Sexual Abuse, Assault, Bank Robbery / Other Robbery
+
+Drug = Drug Trafficking, Drug Communication, Drug Simple Possession
+
+White Collar =  Fraud, Embezzlement, Forgery/Counterfeiting, Bribery, Tax Offenses, Money Laundering
+
+Other = Arson, Firearms, Burglary/Breaking&Entering, Auto theft, Larceny, Racketeering/extortion, Gambling/lottery, Civil rights offenses, Immigration, Pornography/prostitution, Offenses in prison, Administration of justice-related, Environmental, game, fish, and wildlife offenses, National defense offenses, Antitrust violations, Food and drug offenses, Traffic violations and other offenses
+
+
+
+```{r}
+
+All_Crime_1$Violent <- ifelse(All_Crime_1$OFFGUIDE == 4 | All_Crime_1$OFFGUIDE == 19 | All_Crime_1$OFFGUIDE == 20 | All_Crime_1$OFFGUIDE == 22 | All_Crime_1$OFFGUIDE == 26 | All_Crime_1$OFFGUIDE == 27, 1, 0)
+
+All_Crime_1$Drug = ifelse(All_Crime_1$OFFGUIDE == 9 | All_Crime_1$OFFGUIDE == 10, 1, 0)
+
+All_Crime_1$WhiteCollar <- ifelse(All_Crime_1$OFFGUIDE == 16 | All_Crime_1$OFFGUIDE == 15 | All_Crime_1$OFFGUIDE == 5 | All_Crime_1$OFFGUIDE == 29 | All_Crime_1$OFFGUIDE == 21, 1, 0)
+
+All_Crime_1$OtherCrime <-  ifelse(All_Crime_1$OFFGUIDE == 1 | All_Crime_1$OFFGUIDE == 2 | All_Crime_1$OFFGUIDE == 3 | All_Crime_1$OFFGUIDE == 6 | All_Crime_1$OFFGUIDE == 7 | All_Crime_1$OFFGUIDE == 8 | All_Crime_1$OFFGUIDE == 11 | All_Crime_1$OFFGUIDE == 12 | All_Crime_1$OFFGUIDE == 13 | All_Crime_1$OFFGUIDE == 14 | All_Crime_1$OFFGUIDE == 17 | All_Crime_1$OFFGUIDE == 18 | All_Crime_1$OFFGUIDE == 23 | All_Crime_1$OFFGUIDE == 24 | All_Crime_1$OFFGUIDE== 25 | All_Crime_1$OFFGUIDE == 28 | All_Crime_1$OFFGUIDE == 30, 1, 0)
+
+
+# Think this was already done but doing again just in case
+All_Crime_1 <- All_Crime_1 %>%
+  filter(CIRCDIST != 69 & CIRCDIST != 74 & CIRCDIST != 5 & CIRCDIST != 18)
+
+All_Crime_1 <- All_Crime_1 %>%
+  filter(AGE >= 18)
+
+All_Crime_1.noNA <- na.omit(All_Crime_1)
+
+################# Making datasets for Crime Categorization ###############
+
+
+Violent_Crime <- All_Crime_1 %>%
+  filter(Violent == 1)
+
+Drug_Crime <- All_Crime_1 %>%
+  filter(Drug == 1)
+
+WhiteCollar_Crime <- All_Crime_1 %>%
+  filter(WhiteCollar == 1)
+
+Other_Crime <- All_Crime_1 %>%
+  filter(OtherCrime == 1)
+
+
+
+```
+...
+

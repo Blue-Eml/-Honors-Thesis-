@@ -1,0 +1,100 @@
+---
+title: "Regression Models"
+author: "Emily Blue"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(openintro)
+library(dplyr)
+```
+
+
+####### CATEGORIZED CRIME AND DECISION TO INCARCERATE MODELS #########################
+
+# 0 = No Prison/Probation (Fine Only)
+# 1 = Prison Only (No Alternatives)
+# 2 = Prison + Confinement Conditions(Alternatives, Including Zone CSplit Sentences)
+# 3 = Probation + Confinement Conditions (Alternatives)
+# 4 = Probation Only
+
+```{r}
+
+table(All_Crime_1$SENTIMP)
+
+All_Crime_1$Prison <- ifelse(All_Crime_1$SENTIMP == 1 | All_Crime_1$SENTIMP == 2 , 1, 0)
+
+table(All_Crime_1$Prison)
+290536 + 16573 
+2177 + 11936 + 31117
+# looks good
+
+All_Crime_1.noNA <- na.omit(All_Crime_1)
+
+table(Violent_Crime$Prison)
+
+# Violent Crime Prison
+Violent_Prison_Model <- glm(Prison ~ MONSEX + AGE + White + Hispanic + Other + HSgrad + SomeCollege + CollegeGrad + Northeast + West + Midwest + Dependents + WEAPON + CRIMHIST + OffenseLevel + NOCOUNTS + Plea + Released + Bail_Bond, data = Violent_Crime, family = "binomial")
+
+
+summary(Violent_Prison_Model)
+exp(coef(Violent_Prison_Model)) # Call for log odds 
+
+
+# Drug Crime Prison
+Drug_Prison_Model <- glm(Prison ~ MONSEX + AGE + White + Hispanic + Other + HSgrad + SomeCollege + CollegeGrad + Northeast + West + Midwest + Dependents + WEAPON +  CRIMHIST + OffenseLevel + NOCOUNTS + Plea + Released + Bail_Bond, data = Drug_Crime, family = "binomial")
+
+summary(Drug_Prison_Model)
+exp(coef(Drug_Prison_Model))
+
+# White Collar Crime Prison
+WhiteCollar_Prison_Model <- glm(Prison ~ MONSEX + AGE + White + Hispanic + Other + HSgrad + SomeCollege + CollegeGrad + Northeast + West + Midwest + Dependents + WEAPON  + CRIMHIST + OffenseLevel + NOCOUNTS + Plea + Released + Bail_Bond, data = WhiteCollar_Crime, family = "binomial")
+
+summary(WhiteCollar_Prison_Model)
+exp(coef(WhiteCollar_Prison_Model))
+
+# Other Crime Prison
+
+options(scipen = 0)
+
+OtherCrime_Prison_Model <- glm(Prison ~ MONSEX + AGE + White + Hispanic + Other + HSgrad + SomeCollege + CollegeGrad + Northeast + West + Midwest + Dependents + WEAPON  + CRIMHIST + OffenseLevel + NOCOUNTS + Plea + Released + Bail_Bond, data = Other_Crime, family = "binomial")
+
+
+summary(OtherCrime_Prison_Model)
+exp(coef(OtherCrime_Prison_Model))
+
+```
+
+
+## Sentence Length Linear Regression Model
+
+## Violent Crime, Drug Crime, White-Collar Crime, and Other Crime
+
+```{rr}
+
+# Violent Crime
+Violent_Model <- lm(SENSPCAP ~ MONSEX + AGE + White + Hispanic + Other + HSgrad + SomeCollege + CollegeGrad + Northeast + West + Midwest + Dependents + WEAPON + GLMIN + CRIMHIST + OffenseLevel + NOCOUNTS + Plea + Released + Bail_Bond, data = Violent_Crime)
+
+summary(Violent_Model)
+
+# Drug Crime
+Drug_Model <- lm(SENSPCAP ~ MONSEX + AGE + White + Hispanic + Other + HSgrad + SomeCollege + CollegeGrad + Northeast + West + Midwest + Dependents + WEAPON + GLMIN + CRIMHIST + OffenseLevel + NOCOUNTS + Plea + Released + Bail_Bond, data = Drug_Crime)
+
+summary(Drug_Model)
+
+# White Collar Crime
+WhiteCollar_Model <- lm(SENSPCAP ~ MONSEX + AGE + White + Hispanic + Other + HSgrad + SomeCollege + CollegeGrad + Northeast + West + Midwest + Dependents + WEAPON + GLMIN + CRIMHIST + OffenseLevel + NOCOUNTS + Plea + Released + Bail_Bond, data = WhiteCollar_Crime)
+
+summary(WhiteCollar_Model)
+
+# Other Crime
+
+OtherCrime_Model <- lm(SENSPCAP ~ MONSEX + AGE + White + Hispanic + Other + HSgrad + SomeCollege + CollegeGrad + Northeast + West + Midwest + Dependents + WEAPON + GLMIN + CRIMHIST + OffenseLevel + NOCOUNTS + Plea + Released + Bail_Bond, data = Other_Crime)
+
+summary(OtherCrime_Model)
+
+```
+...
+

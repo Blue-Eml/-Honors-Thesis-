@@ -1,0 +1,347 @@
+---
+title: "Crime Category Descriptives"
+author: "Emily Blue"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(openintro)
+library(dplyr)
+```
+
+
+## Gender Descriptives
+
+```{r code-chunk-label}
+
+# SEX
+table(Violent_Crime$MONSEX)
+
+table(Drug_Crime$MONSEX)
+
+table(WhiteCollar_Crime$MONSEX)
+
+table(Other_Crime$MONSEX)
+
+```
+
+
+
+## Violent Crime Descriptives
+
+```{r}
+
+# Violent Crime Stats
+
+table(All_Crime_1.noNA$Prison)
+
+table(Violent_Crime$Prison)
+summary(Violent_Crime$SENSPCAP)
+length(Violent_Crime$SENSPCAP)
+
+summary(Violent_Crime$Prison)
+
+length(Violent_Crime$AGE)
+summary(Violent_Crime$AGE)
+
+table(Violent_Crime$NEWRACE)
+
+# Race
+
+12506 + 9529 + 3573 + 4899
+
+table(Violent_Crime$NEWRACE)
+
+sum(Violent_Crime$Black == 1)
+sum(Violent_Crime$White == 1)
+sum(Violent_Crime$Hispanic == 1)
+sum(Violent_Crime$Other == 1)
+
+# Educ
+
+9299 + 13106 + 6715 + 1387
+
+table(Violent_Crime$NEWEDUC)
+
+sum(Violent_Crime$LessthanHS == 1)
+sum(Violent_Crime$HSgrad == 1)
+sum(Violent_Crime$SomeCollege == 1)
+sum(Violent_Crime$CollegeGrad == 1)
+
+# Region
+
+11737 + 4613 + 6292 + 7865
+table(Violent_Crime$Region)
+
+sum(Violent_Crime$South == 1)
+sum(Violent_Crime$Northeast == 1)
+sum(Violent_Crime$West == 1)
+sum(Violent_Crime$Midwest == 1)
+
+# Dependents
+table(Violent_Crime$Dependents)
+
+# Weapon
+table(Violent_Crime$WEAPON)
+
+# Crime History
+table(Violent_Crime$CRIMHIST)
+
+# plea or trial
+table(Violent_Crime$Plea)
+
+## Offense Level
+length(Violent_Crime$OffenseLevel)
+summary(Violent_Crime$OffenseLevel)
+
+## Pre Sentence Custody Status
+2357  +  27349   +   801
+table(Violent_Crime$Custody_Status)
+sum(Violent_Crime$Custody == 1)
+sum(Violent_Crime$Released == 1)
+sum(Violent_Crime$Bail_Bond == 1)
+
+```
+
+
+## Drug Crime Descriptives
+
+
+```{r}
+
+# Drug Crime Stats
+
+table(All_Crime_1.noNA$Prison)
+
+table(Drug_Crime$Prison)
+
+summary(Drug_Crime$SENSPCAP)
+length(Drug_Crime$SENSPCAP)
+
+summary(Drug_Crime$Prison)
+
+length(Drug_Crime$AGE)
+summary(Drug_Crime$AGE)
+
+
+# Race
+
+table(Drug_Crime$NEWRACE)
+40459 + 42383 + 38328+  4381 
+
+sum(Drug_Crime$Black == 1)
+sum(Drug_Crime$White == 1)
+sum(Drug_Crime$Hispanic == 1)
+sum(Drug_Crime$Other == 1)
+table(Drug_Crime$NEWRACE)
+
+
+# Educ
+
+
+table(Drug_Crime$NEWEDUC)
+
+39159 + 55445 + 27141 + 3806 
+
+sum(Drug_Crime$LessthanHS == 1)
+sum(Drug_Crime$HSgrad == 1)
+sum(Drug_Crime$SomeCollege == 1)
+sum(Drug_Crime$CollegeGrad == 1)
+
+
+# Region
+
+table(Drug_Crime$Region)
+
+sum(Drug_Crime$South == 1)
+sum(Drug_Crime$Northeast == 1)
+sum(Drug_Crime$West == 1)
+sum(Drug_Crime$Midwest == 1)
+
+
+# Dependents
+table(Drug_Crime$Dependents)
+
+# Weapon
+table(Drug_Crime$WEAPON)
+
+# Crime History
+table(Drug_Crime$CRIMHIST)
+
+## Offense Level
+length(Drug_Crime$OffenseLevel)
+summary(Drug_Crime$OffenseLevel)
+
+# Plea or Trial
+table(Drug_Crime$Plea)
+
+## Pre Sentence Custody Status
+
+table(Drug_Crime$Custody_Status)
+
+sum(Drug_Crime$Custody == 1)
+sum(Drug_Crime$Released == 1)
+sum(Drug_Crime$Bail_Bond == 1)
+```
+
+## White-Collar Crime Descriptives
+
+```{r}
+
+# White Collar Crime Stats
+
+table(All_Crime_1.noNA$Prison)
+
+table(WhiteCollar_Crime$Prison)
+
+summary(WhiteCollar_Crime$SENSPCAP)
+length(WhiteCollar_Crime$SENSPCAP)
+
+summary(WhiteCollar_Crime$Prison)
+
+length(WhiteCollar_Crime$AGE)
+summary(WhiteCollar_Crime$AGE)
+
+
+# Race
+
+table(WhiteCollar_Crime$NEWRACE)
+
+
+sum(WhiteCollar_Crime$Black == 1)
+sum(WhiteCollar_Crime$White == 1)
+sum(WhiteCollar_Crime$Hispanic == 1)
+sum(WhiteCollar_Crime$Other == 1)
+table(WhiteCollar_Crime$NEWRACE)
+
+
+
+# Educ
+table(WhiteCollar_Crime$NEWEDUC)
+
+sum(WhiteCollar_Crime$LessthanHS == 1)
+sum(WhiteCollar_Crime$HSgrad == 1)
+sum(WhiteCollar_Crime$SomeCollege == 1)
+sum(WhiteCollar_Crime$CollegeGrad == 1)
+
+
+# Region
+
+table(WhiteCollar_Crime$Region)
+
+sum(WhiteCollar_Crime$South == 1)
+sum(WhiteCollar_Crime$Northeast == 1)
+sum(WhiteCollar_Crime$West == 1)
+sum(WhiteCollar_Crime$Midwest == 1)
+
+
+# Dependents
+table(WhiteCollar_Crime$Dependents)
+
+# Weapon
+table(WhiteCollar_Crime$WEAPON)
+
+# Crime History
+table(WhiteCollar_Crime$CRIMHIST)
+
+## Offense Level
+length(WhiteCollar_Crime$OffenseLevel)
+summary(WhiteCollar_Crime$OffenseLevel)
+
+# Plea or Trial
+table(WhiteCollar_Crime$Plea)
+
+## Pre Sentence Custody Status
+
+table(WhiteCollar_Crime$Custody_Status)
+
+sum(WhiteCollar_Crime$Custody == 1)
+sum(WhiteCollar_Crime$Released == 1)
+sum(WhiteCollar_Crime$Bail_Bond == 1)
+
+```
+
+
+
+## Other Crime Descriptives
+
+```{r}
+
+
+# White Crime Stats
+
+table(All_Crime_1.noNA$Prison)
+
+table(Other_Crime$Prison)
+11856 + 95871
+
+summary(Other_Crime$SENSPCAP)
+length(Other_Crime$SENSPCAP)
+
+summary(Other_Crime$Prison)
+
+length(Other_Crime$AGE)
+summary(Other_Crime$AGE)
+
+
+# Race
+
+table(Other_Crime$NEWRACE)
+
+
+sum(Other_Crime$Black == 1)
+sum(Other_Crime$White == 1)
+sum(Other_Crime$Hispanic == 1)
+sum(Other_Crime$Other == 1)
+table(Other_Crime$NEWRACE)
+
+
+
+# Educ
+table(Other_Crime$NEWEDUC)
+
+sum(Other_Crime$LessthanHS == 1)
+sum(Other_Crime$HSgrad == 1)
+sum(Other_Crime$SomeCollege == 1)
+sum(Other_Crime$CollegeGrad == 1)
+
+
+# Region
+
+table(Other_Crime$Region)
+
+sum(Other_Crime$South == 1)
+sum(Other_Crime$Northeast == 1)
+sum(Other_Crime$West == 1)
+sum(Other_Crime$Midwest == 1)
+
+
+# Dependents
+table(Other_Crime$Dependents)
+
+# Weapon
+table(Other_Crime$WEAPON)
+
+# Crime History
+table(Other_Crime$CRIMHIST)
+
+## Offense Level
+length(Other_Crime$OffenseLevel)
+summary(Other_Crime$OffenseLevel)
+
+# Plea or Trial
+table(Other_Crime$Plea)
+
+## Pre Sentence Custody Status
+
+table(Other_Crime$Custody_Status)
+
+sum(Other_Crime$Custody == 1)
+sum(Other_Crime$Released == 1)
+sum(Other_Crime$Bail_Bond == 1)
+
+```
+...
+

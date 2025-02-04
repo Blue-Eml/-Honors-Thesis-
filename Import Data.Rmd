@@ -1,0 +1,234 @@
+---
+title: "Reading in Data"
+author: "Emily Blue"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(openintro)
+library(dplyr)
+library(tidyr)
+
+citation("dplyr")
+citation("ggplot2")
+
+?openintro
+
+```
+
+# Data Source: www.ussc.gov/research/datafiles/commission-datafiles
+# Workflow:
+# 1. Downloaded data files from the USSC website.
+# 2. Imported the data into SPSS for initial processing.
+# 3. Exported the processed data from SPSS as CSV files.
+# 4. Imported the CSV files into R for further analysis (shown below).
+
+## Import Data
+```{r code-chunk-label}
+
+
+# 2022
+
+opafy22nid <- read_csv("~/Downloads/opafy22nid (1)/opafy22nid.csv")
+
+fy2022 <- opafy22nid %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP)
+
+head(fy2022)
+
+rm(opafy22nid)
+
+#2021
+
+opafy21nid <- read_csv("~/Downloads/opafy21nid (2)/opafy21nid.csv")
+
+fy2021 <- opafy21nid %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP)
+
+rm(opafy21nid)
+
+#2020
+
+opafy20nid <- read_csv("~/Downloads/opafy20nid/opafy20nid.csv")
+
+fy2020 <- opafy20nid %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP )
+
+rm(opafy20nid)
+
+#2019
+
+opafy19nid <- read_csv("~/Downloads/opafy19nid/opafy19nid.csv")
+# Rows: 76538 Columns: 17732 
+
+fy2019 <- opafy19nid %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP )
+
+rm(opafy19nid)
+
+#2018
+
+opafy18nid <- read_csv("~/Downloads/opafy18nid/opafy18nid.csv")
+# Rows: 64565 Columns: 16855 
+
+fy2018 <- opafy18nid %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP )
+
+
+rm(opafy18nid)
+
+#2017
+
+opafy17nid <- read_csv("~/Downloads/opafy17nid/opafy17nid.csv")
+ussc_sup_fy17 <- read_csv("~/Downloads/opafy17nid/ussc_sup_fy17.csv")
+
+opafy17nid_merged <- data.frame(opafy17nid, ussc_sup_fy17)
+
+fy2017 <- opafy17nid_merged %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP )
+
+rm(opafy17nid)
+rm(ussc_sup_fy17)
+rm(opafy17nid_merged)
+
+
+#2016
+
+
+opafy16nid <- read_csv("~/Downloads/opafy16nid/opafy16nid.csv")
+ussc_sup_fy16 <- read_csv("~/Downloads/opafy16nid/ussc_sup_fy16.csv")
+
+opafy16nid_merged <- data.frame(opafy16nid, ussc_sup_fy16)
+
+fy2016 <- opafy16nid_merged %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP)
+
+rm(opafy16nid)
+rm(ussc_sup_fy16)
+rm(opafy16nid_merged)
+
+
+#2015
+
+opafy15nid <- read_csv("~/Downloads/opafy15nid/opafy15nid.csv")
+ussc_sup_fy15 <- read_csv("~/Downloads/opafy15nid/ussc_sup_fy15.csv")
+
+opafy15nid_merged <- data.frame(opafy15nid, ussc_sup_fy15)
+
+fy2015 <- opafy15nid_merged %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP )
+
+rm(opafy15nid)
+rm(ussc_sup_fy15)
+rm(opafy15nid_merged)
+
+#2014
+
+
+opafy14nid <- read_csv("~/Downloads/opafy14nid/opafy14nid.csv")
+ussc_sup_fy14 <- read_csv("~/Downloads/opafy14nid/ussc_sup_fy14.csv")
+
+opafy14nid_merged <- data.frame(opafy14nid, ussc_sup_fy14)
+
+fy2014 <- opafy14nid_merged %>%
+  select(USSCIDN, OFFGUIDE, SENSPCAP,MONSEX, SENTYR, AGE, CIRCDIST, NEWEDUC, NEWRACE,  WEAPON, SENTRNGE, NEWCIT, QUARTER, SENTMON, PRESENT, SENTIMP, NEWCNVTN, NUMDEPEN, CRIMHIST, CRIMPTS, XCRHISSR, XFOLSOR, GLMIN, NOCOUNTS, PRISDUM, SENTTCAP )
+
+rm(opafy14nid)
+rm(ussc_sup_fy14)
+rm(opafy14nid_merged)
+
+
+All_Crime <- rbind(fy2022, fy2021, fy2020, fy2019, fy2018, fy2017, fy2016, fy2015, fy2014)
+
+head(All_Crime)
+
+
+write.csv(All_Crime, file = "All_Crime_Filtered_Dataset.csv")
+save(All_Crime, file = "All_Crime_Filtered_Dataset.csv")
+
+```
+
+
+
+## Create Dummy Variables 
+```{r}
+
+# Switching Citizen Variable
+
+Citizen <- All_Crime %>%
+  select(NEWCIT) %>%
+  mutate(Citizen = ifelse(NEWCIT == 0, 1,0))
+
+All_Crime_1 <- (data.frame(All_Crime, Citizen))
+
+## Dummy for number of dependents
+Dependents <- All_Crime_1 %>% 
+  select(NUMDEPEN) %>%
+  mutate(Dependents = ifelse(NUMDEPEN > 0, 1,0))
+
+All_Crime_1 <- (data.frame(All_Crime_1,Dependents))
+
+# Race
+
+All_Crime_1$Race <-  case_when(
+  All_Crime_1$NEWRACE == 1 ~ "White",
+  All_Crime_1$NEWRACE == 2 ~ "Black",
+  All_Crime_1$NEWRACE == 3 ~ "Hispanic",
+  All_Crime_1$NEWRACE == 6 ~ "Other",
+    )
+
+# Education
+
+All_Crime_1$Education <- case_when(
+  All_Crime_1$NEWEDUC == 1 ~ "Less than HS", 
+  All_Crime_1$NEWEDUC == 3 ~ "HS grad",
+  All_Crime_1$NEWEDUC == 5 ~ "Some College",
+  All_Crime_1$NEWEDUC == 6 ~ "College grad",
+)
+
+# Custody
+
+All_Crime_1$Custody_Status <- case_when(
+  All_Crime_1$PRESENT == 1 ~ "Custody", 
+  All_Crime_1$PRESENT == 2 ~ "Bail",
+  All_Crime_1$PRESENT == 3 ~ "Released",
+)
+
+# Plea or Bail var
+
+All_Crime_1$Convicted <- case_when(
+  All_Crime_1$NEWCNVTN == 0 ~ "Plea", 
+  All_Crime_1$NEWCNVTN == 1 ~ "Trial",
+)
+
+
+# Crime
+
+All_Crime_1$Offense <- case_when(All_Crime$OFFGUIDE == 1 ~ "Administration of Justice", All_Crime$OFFGUIDE == 2 ~ "Antitrust", All_Crime$OFFGUIDE == 3 ~ "Arson", All_Crime$OFFGUIDE == 4 ~ "Assault",All_Crime$OFFGUIDE == 5 ~ "Bribery/Corruption", All_Crime$OFFGUIDE == 6 ~ " Burglary/Trespass", All_Crime$OFFGUIDE == 7 ~ "Child Pornography", All_Crime$OFFGUIDE == 8 ~ "Commercialized Vice", All_Crime$OFFGUIDE == 9 ~ "Drug Possession", All_Crime$OFFGUIDE == 10 ~ "Drug Trafficking", All_Crime$OFFGUIDE == 11 ~ "Environmental", All_Crime$OFFGUIDE == 12 ~ "Extortion/Racketeering", All_Crime$OFFGUIDE == 13 ~ "Firearms", All_Crime$OFFGUIDE == 14 ~ "Food and Drug", All_Crime$OFFGUIDE == 15 ~ "Forgery/Counter/Copyright", All_Crime$OFFGUIDE == 16 ~ "Fraud/Theft/Embezzlement", All_Crime$OFFGUIDE == 17 ~ "Immigration", All_Crime$OFFGUIDE == 18 ~ "Individual Rights", All_Crime$OFFGUIDE == 19 ~ "Kidnapping", All_Crime$OFFGUIDE == 20 ~ "Manslaughter", All_Crime$OFFGUIDE == 21 ~ "Money Launder", All_Crime$OFFGUIDE == 22 ~ "Murder", All_Crime$OFFGUIDE == 23 ~ "National Defense", All_Crime$OFFGUIDE == 24 ~ "Obscenity/Other Sex Offenses", All_Crime$OFFGUIDE == 25 ~ "Prison Offenses", All_Crime$OFFGUIDE == 26 ~ "Robbery ", All_Crime$OFFGUIDE == 27 ~ "Sex Abuse", All_Crime$OFFGUIDE == 28 ~ "Stalking/Harassing", All_Crime$OFFGUIDE == 29 ~ "Tax", All_Crime$OFFGUIDE == 30 ~ " Other")
+
+View(All_Crime_1)
+
+
+
+# Creating the Region Variable
+
+All_Crime_1$Region <- case_when(All_Crime$CIRCDIST == 7 | All_Crime$CIRCDIST == 2 | All_Crime$CIRCDIST == 3 | All_Crime$CIRCDIST == 4  | All_Crime$CIRCDIST == 6 | All_Crime$CIRCDIST== 12 | All_Crime$CIRCDIST ==  14 | All_Crime$CIRCDIST == 8 | All_Crime$CIRCDIST == 9 | All_Crime$CIRCDIST == 10 | All_Crime$CIRCDIST == 11 | All_Crime$CIRCDIST == 12 | All_Crime$CIRCDIST == 15 | All_Crime$CIRCDIST == 16 | All_Crime$CIRCDIST == 17 ~ "Northeast",  
+All_Crime$CIRCDIST == 49 | All_Crime$CIRCDIST == 50 | All_Crime$CIRCDIST == 46 | All_Crime$CIRCDIST == 47 | All_Crime$CIRCDIST == 48 | All_Crime$CIRCDIST == 39 | All_Crime$CIRCDIST == 40 | All_Crime$CIRCDIST == 41 | All_Crime$CIRCDIST == 42 | All_Crime$CIRCDIST == 51 | All_Crime$CIRCDIST == 52 | All_Crime$CIRCDIST == 55 | All_Crime$CIRCDIST == 56 | All_Crime$CIRCDIST == 79 | All_Crime$CIRCDIST == 57 | All_Crime$CIRCDIST == 58 | All_Crime$CIRCDIST == 59 | All_Crime$CIRCDIST == 60 | All_Crime$CIRCDIST == 61 |All_Crime$CIRCDIST == 62 |  All_Crime$CIRCDIST == 46 ~ "Midwest",  
+All_Crime$CIRCDIST == 13 | All_Crime$CIRCDIST == 1 | All_Crime$CIRCDIST == 89 | All_Crime$CIRCDIST == 90 | All_Crime$CIRCDIST == 91 | All_Crime$CIRCDIST == 92 | All_Crime$CIRCDIST == 93 | All_Crime$CIRCDIST == 94 | All_Crime$CIRCDIST == 19 | All_Crime$CIRCDIST == 20 | All_Crime$CIRCDIST == 21 | All_Crime$CIRCDIST == 22 | All_Crime$CIRCDIST == 23 | All_Crime$CIRCDIST == 24 | All_Crime$CIRCDIST == 25 | All_Crime$CIRCDIST == 26 | All_Crime$CIRCDIST == 27 | All_Crime$CIRCDIST == 86 | All_Crime$CIRCDIST == 87 | All_Crime$CIRCDIST == 88 | All_Crime$CIRCDIST == 37 | All_Crime$CIRCDIST == 38 | All_Crime$CIRCDIST == 31 | All_Crime$CIRCDIST == 32 | All_Crime$CIRCDIST == 43 | All_Crime$CIRCDIST == 44 | All_Crime$CIRCDIST == 45 | All_Crime$CIRCDIST == 53 | All_Crime$CIRCDIST == 54 | All_Crime$CIRCDIST == 28 | All_Crime$CIRCDIST == 29 | All_Crime$CIRCDIST == 30 | All_Crime$CIRCDIST == 81 | All_Crime$CIRCDIST == 82 | All_Crime$CIRCDIST == 83 | All_Crime$CIRCDIST == 33 | All_Crime$CIRCDIST == 34 | All_Crime$CIRCDIST == 35 | All_Crime$CIRCDIST == 36 ~ "South", 
+  All_Crime$CIRCDIST == 64 | All_Crime$CIRCDIST == 78 | All_Crime$CIRCDIST == 71 | All_Crime$CIRCDIST == 80 | All_Crime$CIRCDIST == 72 | All_Crime$CIRCDIST == 84 | All_Crime$CIRCDIST == 73 | All_Crime$CIRCDIST == 85 | All_Crime$CIRCDIST == 63 | All_Crime$CIRCDIST == 65 | All_Crime$CIRCDIST == 66 | All_Crime$CIRCDIST == 67 | All_Crime$CIRCDIST == 68 | All_Crime$CIRCDIST == 70 | All_Crime$CIRCDIST == 75 | All_Crime$CIRCDIST == 76 | All_Crime$CIRCDIST == 77 ~ "West") 
+
+
+# Remove US Territory
+All_Crime_1 <- All_Crime_1 %>%
+  filter(CIRCDIST != 69 & CIRCDIST != 74 & CIRCDIST != 5 & CIRCDIST != 18)
+
+
+
+```
+
+
+
+...
+
